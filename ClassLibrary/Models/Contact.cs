@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClassLibrary.Interfaces;
 
 namespace ClassLibrary.Models
 {
-    public class Contact
+    public class Contact : IContact
     {
-        public Contact(){}
-        public Contact(string firstName, string lastName, string email, 
+        public Contact() { }
+        public Contact(string firstName, string lastName, string email,
             string address, string city, string postalCode, string phone)
         {
             FirstName = firstName;

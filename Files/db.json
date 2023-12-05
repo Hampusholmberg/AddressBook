@@ -1,11 +1,29 @@
 [
   {
-    "FirstName": "John",
-    "LastName": "Doe",
-    "Email": "johndoe@email.com",
-    "Address": "street 123",
-    "City": "esl\u00F6v",
-    "PostalCode": "22132",
-    "Phone": "123456789"
+    "FirstName": "Hampus",
+    "LastName": "Holmberg",
+    "Email": "hampusholmberg@live.com",
+    "Address": "Stora strandgatan 39",
+    "City": "Landskrona",
+    "PostalCode": "26129",
+    "Phone": "0702242926"
+  },
+  {
+    "FirstName": "Elin",
+    "LastName": "Helgesson",
+    "Email": "elin@email.se",
+    "Address": "Hejv\u00E4gen 3",
+    "City": "Torslanda",
+    "PostalCode": "45498",
+    "Phone": "112"
+  },
+  {
+    "FirstName": "Rutger",
+    "LastName": "Gunnarsson",
+    "Email": "bassman@abba.se",
+    "Address": "Polarstudion 5",
+    "City": "Stockholm",
+    "PostalCode": "123 45",
+    "Phone": "08 112 112 112"
   }
 ]
