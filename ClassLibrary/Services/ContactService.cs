@@ -1,89 +1,108 @@
 ﻿using ClassLibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Globalization;
+using System.Diagnostics;
+
+
 
 
 namespace ClassLibrary.Services
 {
-    public class ContactService
+    /// <summary>
+    /// 
+    /// The purpose of this service class is to handle add, delete, update and get requests from the json file that will store the contacts
+    /// 
+    /// This service class depends on FileService.cs class to work
+    /// 
+    /// </summary>
+
+    public class ContactService : IContactService
     {
-        private static readonly string _filePath = "C:\\Education\\03._C-sharp\\AddressBook\\Files\\db.json";
+
+        /* Dependency injection of the FileService class that will handle the link between the json file and the application */
+        private readonly FileService _fileService;
+        public ContactService(FileService fileService)
+        {
+            _fileService = fileService;
+        }
+
         public List<Contact> contacts = new List<Contact>();
-        public void GetContactsFromJson ()
-        {
-            try 
-            {
-                string json = File.ReadAllText(_filePath);
-                contacts = JsonSerializer.Deserialize<List<Contact>>(json);
-            } catch { }
-        }
-        public void AddContactToList (Contact contact)
-        {
-            GetContactsFromJson();
-            contacts.Add(contact);
 
-            var options = new JsonSerializerOptions()
+        // KLAR
+        public void GetContactsFromJson()
+        {
+            try
             {
-                WriteIndented = true
-            };
-
-            string json = JsonSerializer.Serialize(contacts, options);
-            File.WriteAllText(_filePath, json);
-            GetContactsFromJson();
+                contacts = _fileService.UpdateListFromJson();
+            }
+            catch (Exception ex) { Debug.Write(ex.Message); }
         }
+
+        // KLAR
+        public void AddContactToList(Contact contact)
+        {
+            try
+            {
+                GetContactsFromJson();
+                contacts.Add(contact);
+
+                _fileService.UpdateJsonFromList(contacts);
+
+                GetContactsFromJson();
+            }
+            catch (Exception ex) { Debug.Write(ex.Message); }
+        }
+
+        // KLAR
         public void DeleteContactFromList(string email)
         {
-            GetContactsFromJson();
-            List<Contact> contactsToKeep = new List<Contact>();
-
-            foreach (var contact in contacts)
+            try
             {
-                if (contact.Email != email)
+                _fileService.DeleteContactFromJson(email);
+                GetContactsFromJson();
+            }
+            catch (Exception ex) { Debug.Write(ex.Message); }
+        }
+
+        // FLYTTA TILL MENUSERVICE
+        public bool ShowAllContactsInConsole()
+        {
+            try
+            {
+                foreach (var contact in contacts)
                 {
-                    contactsToKeep.Add(contact);
+                    Console.WriteLine(
+                        $"{contact.FirstName} " +
+                        $"{contact.LastName}, " +
+                        $"{contact.Email}");
                 }
+                return true;
             }
-
-            var options = new JsonSerializerOptions()
-            {
-                WriteIndented = true
-            };
-
-            string json = JsonSerializer.Serialize(contactsToKeep, options);
-            File.WriteAllText(_filePath, json);
-            GetContactsFromJson();
+            catch (Exception ex) { Debug.Write(ex.Message); }
+            return false;
         }
-        public void ShowAllContacts () 
-        { 
 
-            foreach (var contact in contacts) 
-            {
-                Console.WriteLine(
-                    $"{contact.FirstName} " +
-                    $"{contact.LastName}, " +
-                    $"{contact.Email}");
-            }
-        }
+
+
+
+
+        // FIXA
         public Contact GetSpecificContact(int id)
         {
             GetContactsFromJson();
-            return contacts[id-1];
+            return contacts[id - 1];
         }
+
+        // KLAR
         public string BeautifyName(string name)
         {
-            if (!string.IsNullOrEmpty(name)) 
+            if (!string.IsNullOrEmpty(name))
             {
                 name = name.Trim().ToLower();
                 name = char.ToUpper(name[0]) + name.Substring(1);
             }
             return name;
         }
+
+        // KLAR
         public string BeautifyEmail(string email)
         {
             email = email.Trim().ToLower();
