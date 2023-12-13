@@ -4,10 +4,10 @@ namespace ClassLibrary.Interfaces
 {
     public interface IFileService
     {
-        string ToJson(List<Contact> contacts);
-        List<Contact> FromJson(string json);
-        List<Contact> UpdateListFromJson();
-        void UpdateJsonFromList(List<Contact> updatedList);
+        string ToJson(List<ContactModel> contacts);
+        List<ContactModel> FromJson(string json);
+        List<ContactModel> UpdateListFromJson();
+        void UpdateJsonFromList(List<ContactModel> updatedList);
         void DeleteContactFromJson(string email);
     }
 }

@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary", "ClassLibrary\ClassLibrary.csproj", "{98324216-BBB6-4D95-9094-4903EC7DB933}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary_Tests", "ClassLibrary_Tests\ClassLibrary_Tests.csproj", "{12A9CB3F-7387-478F-AA1A-83900C53AE12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary_Tests", "ClassLibrary_Tests\ClassLibrary_Tests.csproj", "{12A9CB3F-7387-478F-AA1A-83900C53AE12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiApp1", "MauiApp1\MauiApp1.csproj", "{29BFC2B1-075F-4707-B5C9-879577693EC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,12 @@ Global
 		{12A9CB3F-7387-478F-AA1A-83900C53AE12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12A9CB3F-7387-478F-AA1A-83900C53AE12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12A9CB3F-7387-478F-AA1A-83900C53AE12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29BFC2B1-075F-4707-B5C9-879577693EC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29BFC2B1-075F-4707-B5C9-879577693EC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29BFC2B1-075F-4707-B5C9-879577693EC5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{29BFC2B1-075F-4707-B5C9-879577693EC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29BFC2B1-075F-4707-B5C9-879577693EC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29BFC2B1-075F-4707-B5C9-879577693EC5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

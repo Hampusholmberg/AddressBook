@@ -2,23 +2,24 @@
 using ClassLibrary.Models;
 using System.Text.Json;
 
-
 namespace ClassLibrary.Services
 {
-    /// <summary>
-    /// 
     /// The purpose of this service class is to handle the connection between
     /// the application and the Json file stored on the disk. 
-    /// 
-    /// </summary>
+
     public class FileService : IFileService
     {
+        //static string _fileName = "db.json";
+        //private readonly string _filePath = Path.Combine(Directory.GetCurrentDirectory(), @$"..\..\..\..\Files\{_fileName}");
 
-        static string _fileName = "db.json";
-        private readonly string _filePath = Path.Combine(Directory.GetCurrentDirectory(), @$"..\..\..\..\Files\{_fileName}");
+        private readonly string _filePath = Path.Combine(Directory.GetCurrentDirectory(), @$"C:\Education\03._C-sharp\AddressBook\Files\db.json");
 
-        /* Takes a list of Contact objects and returns a json formatted string with proper indentation */
-        public string ToJson(List<Contact> contacts)
+        /// <summary>
+        /// Takes a list of Contact objects and returns a json formatted string with proper indentation.
+        /// </summary>
+        /// <param name="contacts"></param>
+        /// <returns> json format string </returns>
+        public string ToJson(List<ContactModel> contacts)
         {
             var options = new JsonSerializerOptions()
             {
@@ -28,19 +29,26 @@ namespace ClassLibrary.Services
             return json;
         }
 
-        /* Takes a string of json formatted text and returns it as a list of Contacts */
-        public List<Contact> FromJson(string json)
+        /// <summary>
+        /// Takes a string of json formatted text and returns it as a list of Contacts.
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns> List<Contact> </returns>
+        public List<ContactModel> FromJson(string json)
         {
-            List<Contact> jsonDeserialized = new List<Contact>();
-            jsonDeserialized = JsonSerializer.Deserialize<List<Contact>>(json)!;
+            List<ContactModel> jsonDeserialized = new List<ContactModel>();
+            jsonDeserialized = JsonSerializer.Deserialize<List<ContactModel>>(json)!;
             return jsonDeserialized;
         }
 
-        /* Takes an email address as a text string, tries to match it to contacts and deletes the user(s) from the json file and returns an updated list of contacts */
+        /// <summary>
+        /// Takes an email address as a text string, tries to match it to contacts and deletes the user(s) from the json file and returns an updated list of contacts.
+        /// </summary>
+        /// <param name="email"></param>
         public void DeleteContactFromJson(string email)
         {
-            List<Contact> contactsToKeep = new List<Contact>();
-            List<Contact> allContacts = new List<Contact>(UpdateListFromJson());
+            List<ContactModel> contactsToKeep = new List<ContactModel>();
+            List<ContactModel> allContacts = new List<ContactModel>(UpdateListFromJson());
 
             foreach (var contact in allContacts)
             {
@@ -52,14 +60,20 @@ namespace ClassLibrary.Services
             UpdateJsonFromList(contactsToKeep);
         }
 
-        /* Takes a list of contacts and replaces the content of the json file with it */
-        public void UpdateJsonFromList(List<Contact> updatedList)
+        /// <summary>
+        /// Takes a list of contacts and replaces the content of the json file with it.
+        /// </summary>
+        /// <param name="updatedList"></param>
+        public void UpdateJsonFromList(List<ContactModel> updatedList)
         {
             File.WriteAllText(_filePath, ToJson(updatedList));
         }
 
-        /* Returns a list with the content that is in the json file */
-        public List<Contact> UpdateListFromJson()
+        /// <summary>
+        /// Returns a list with the content that is in the json file
+        /// </summary>
+        /// <returns> List<Contact> </returns>
+        public List<ContactModel> UpdateListFromJson()
         {
             string json = File.ReadAllText(_filePath);
             return FromJson(json);

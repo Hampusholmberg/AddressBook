@@ -6,52 +6,57 @@ using System.Diagnostics;
 
 namespace ClassLibrary.Services
 {
-    /// <summary>
-    /// 
     /// The purpose of this service class is to handle add, delete, update and get requests from the json file that will store the contacts
-    /// 
     /// This service class depends on FileService.cs class to work
-    /// 
-    /// </summary>
-
-    public class ContactService : IContactService
+    public class ContactService
     {
+        public List<ContactModel> Contacts = [];
 
-        /* Dependency injection of the FileService class that will handle the link between the json file and the application */
         private readonly FileService _fileService;
         public ContactService(FileService fileService)
         {
             _fileService = fileService;
+            GetContactsFromJson();
         }
 
-        public List<Contact> contacts = new List<Contact>();
-
-        // KLAR
+        /// <summary>
+        /// Updates the list of contacts with the information in the json file. 
+        /// </summary>
         public void GetContactsFromJson()
         {
             try
             {
-                contacts = _fileService.UpdateListFromJson();
+                Contacts = _fileService.UpdateListFromJson();
             }
             catch (Exception ex) { Debug.Write(ex.Message); }
         }
 
-        // KLAR
-        public void AddContactToList(Contact contact)
+
+        /// <summary>
+        /// Adds a contact object to the json file.
+        /// </summary>
+        /// <param name="contact"></param>
+        public bool AddContactToList(ContactModel contact)
         {
             try
             {
                 GetContactsFromJson();
-                contacts.Add(contact);
+                Contacts.Add(contact);
 
-                _fileService.UpdateJsonFromList(contacts);
-
+                _fileService.UpdateJsonFromList(Contacts);
+                
                 GetContactsFromJson();
+                return true;
             }
             catch (Exception ex) { Debug.Write(ex.Message); }
+            return false;
         }
 
-        // KLAR
+
+        /// <summary>
+        /// Deletes a contact object based on the email value from the json file.
+        /// </summary>
+        /// <param name="email"></param>
         public void DeleteContactFromList(string email)
         {
             try
@@ -62,12 +67,43 @@ namespace ClassLibrary.Services
             catch (Exception ex) { Debug.Write(ex.Message); }
         }
 
+
+        /// <summary>
+        /// Removes blank spaces before and after the name and converts the first letter to uppercase and the rest to lowercase.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public string BeautifyName(string name)
+        {
+            if (!string.IsNullOrEmpty(name))
+            {
+                name = name.Trim().ToLower();
+                name = char.ToUpper(name[0]) + name.Substring(1);
+            }
+            return name;
+        }
+
+
+        /// <summary>
+        /// Removes blank spaces before and after the email address and converts all letters to lowercase.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public string BeautifyEmail(string email)
+        {
+            email = email.Trim().ToLower();
+            return email;
+        }
+
+
+
+
         // FLYTTA TILL MENUSERVICE
         public bool ShowAllContactsInConsole()
         {
             try
             {
-                foreach (var contact in contacts)
+                foreach (var contact in Contacts)
                 {
                     Console.WriteLine(
                         $"{contact.FirstName} " +
@@ -80,33 +116,11 @@ namespace ClassLibrary.Services
             return false;
         }
 
-
-
-
-
         // FIXA
-        public Contact GetSpecificContact(int id)
+        public ContactModel GetSpecificContact(int id)
         {
             GetContactsFromJson();
-            return contacts[id - 1];
-        }
-
-        // KLAR
-        public string BeautifyName(string name)
-        {
-            if (!string.IsNullOrEmpty(name))
-            {
-                name = name.Trim().ToLower();
-                name = char.ToUpper(name[0]) + name.Substring(1);
-            }
-            return name;
-        }
-
-        // KLAR
-        public string BeautifyEmail(string email)
-        {
-            email = email.Trim().ToLower();
-            return email;
+            return Contacts[id - 1];
         }
     }
 }

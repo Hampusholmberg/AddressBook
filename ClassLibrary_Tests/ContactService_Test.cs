@@ -8,34 +8,32 @@ namespace ClassLibrary_Tests;
 
 public class ContactService_Test
 {
+    private ContactService _contactService;
+    public ContactService_Test(ContactService contactService)
+    {
+        _contactService = contactService;        
+    }
+
     [Fact]
     public void GetContactFromJson_ShouldUpdateListWithObjectsInJsonFile()
     {
         // ---- ARRANGE ---- // 
-        ContactService contactService = new ContactService();
+        int before = _contactService.Contacts.Count;
 
         // ---- ACT ---- // 
-        int before = contactService.contacts.Count;
-        contactService.GetContactsFromJson();
-        int after = contactService.contacts.Count;
-
+        _contactService.GetContactsFromJson();
+        int after = _contactService.Contacts.Count;
         
         // ---- ASSERT ---- // 
-
-        // Makes sure the list is not empty after gett
         Assert.NotEqual(before, after);
-
-        // Makes sure the filepath is valid
-        // Assert. 
     }
 
     [Fact]
     public void AddContactToList_ShouldAddContactToList ()
     {
         // ---- ARRANGE ---- // 
-        ContactService contactService = new ContactService();
         string testEmail = Guid.NewGuid().ToString();
-        Contact testContact = new Contact() 
+        ContactModel testContact = new ContactModel() 
         {
             FirstName = "Test",
             LastName = "Testson",
@@ -47,23 +45,22 @@ public class ContactService_Test
         };
 
         // ---- ACT ---- // 
-        contactService.AddContactToList(testContact);
+        _contactService.AddContactToList(testContact);
 
         // ---- ASSERT ---- // 
-        Assert.Equal(testEmail, contactService.contacts.Last().Email);
+        Assert.Equal(testEmail, _contactService.Contacts.Last().Email);
 
         // ---- CLEANUP ---- // 
-        contactService.DeleteContactFromList(contactService.contacts.Last().Email);
+        _contactService.DeleteContactFromList(_contactService.Contacts.Last().Email);
     }
 
     [Fact]
     public void DeleteContactFromList_ShouldDeleteContactsThatHaveMatchingEmailAddress ()
     {
         // ---- ARRANGE ---- // 
-        ContactService contactService = new ContactService();
         string testEmail = Guid.NewGuid().ToString();
 
-        Contact testContact = new Contact()
+        ContactModel testContact = new ContactModel()
         {
             FirstName = "Test",
             LastName = "Testson",
@@ -75,24 +72,24 @@ public class ContactService_Test
         };
 
         // ---- ACT ---- // 
-        contactService.AddContactToList(testContact);
-        contactService.DeleteContactFromList(testEmail);
+        _contactService.AddContactToList(testContact);
+        _contactService.DeleteContactFromList(testEmail);
 
         // ---- ASSERT ---- // 
-        Assert.NotEqual(testEmail, contactService.contacts.Last().Email);
+        Assert.NotEqual(testEmail, _contactService.Contacts.Last().Email);
     }
 
     [Fact]
     public bool ShowAllContactsInConsole_ShouldLoopOverAllContactsAndWriteToConsole()
     {
         // ---- ARRANGE ---- //
-        ContactService contactService = new ContactService();
+        FileService fileService = new FileService();
 
         // ---- ACT ---- //
-        contactService.ShowAllContactsInConsole();
+        _contactService.ShowAllContactsInConsole();
 
         // ---- ASSERT ---- //
-        Assert.True(contactService.ShowAllContactsInConsole());
-        return contactService.ShowAllContactsInConsole();
+        Assert.True(_contactService.ShowAllContactsInConsole());
+        return _contactService.ShowAllContactsInConsole();
     }
-} 
+}

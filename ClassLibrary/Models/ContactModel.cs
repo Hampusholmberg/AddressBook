@@ -2,10 +2,16 @@
 
 namespace ClassLibrary.Models
 {
-    public class Contact : IContact
+    public class ContactModel
     {
-        public Contact() { }
-        public Contact(string firstName, string lastName, string email,
+        public ContactModel() { }
+        public ContactModel(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
+
+        public ContactModel(string firstName, string lastName, string email,
             string address, string city, string postalCode, string phone)
         {
             FirstName = firstName;
@@ -16,6 +22,7 @@ namespace ClassLibrary.Models
             PostalCode = postalCode;
             Phone = phone;
         }
+
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
         public string Email { get; set; } = null!;

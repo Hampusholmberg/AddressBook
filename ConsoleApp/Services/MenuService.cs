@@ -57,7 +57,7 @@ namespace ConsoleApp.Services
         {
             Console.Clear();
 
-            int countBefore = _contactService.contacts.Count();
+            int countBefore = _contactService.Contacts.Count();
 
             Console.Write("First Name: ");
             string? firstName = _contactService.BeautifyName(Console.ReadLine());
@@ -80,12 +80,12 @@ namespace ConsoleApp.Services
             Console.Write("Phone number: ");
             string? phoneNumber = Console.ReadLine();
 
-            Contact contact = new Contact(firstName, lastName, emailAddress, address, city, postalCode, phoneNumber);
+            ContactModel contact = new ContactModel(firstName, lastName, emailAddress, address, city, postalCode, phoneNumber);
 
             _contactService.AddContactToList(contact);
             Console.Clear();
 
-            int countAfter = _contactService.contacts.Count();
+            int countAfter = _contactService.Contacts.Count();
 
             if (countAfter > countBefore)
             {
@@ -113,7 +113,7 @@ namespace ConsoleApp.Services
             Console.Clear();
             _contactService.ShowAllContactsInConsole();
 
-            if (!_contactService.contacts.Any())
+            if (!_contactService.Contacts.Any())
             {
                 Console.WriteLine("There are no contacts in the list.");
             }
@@ -125,17 +125,17 @@ namespace ConsoleApp.Services
         {
             Console.Clear();
 
-            for (int i = 0; i < _contactService.contacts.Count(); i++)
+            for (int i = 0; i < _contactService.Contacts.Count(); i++)
             {
                 int id = i + 1;
                 Console.WriteLine(
-                    $"{id}. {_contactService.contacts[i].FirstName} " +
-                    $"{_contactService.contacts[i].LastName}");
+                    $"{id}. {_contactService.Contacts[i].FirstName} " +
+                    $"{_contactService.Contacts[i].LastName}");
             }
             Console.Write("\nPlease enter the number of the contact you want full details for: ");
             int index = int.Parse(Console.ReadLine());
 
-            List<Contact> tempList = [_contactService.GetSpecificContact(index)];
+            List<ContactModel> tempList = [_contactService.GetSpecificContact(index)];
 
             Console.Clear();
             Console.WriteLine(

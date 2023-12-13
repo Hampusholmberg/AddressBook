@@ -4,12 +4,12 @@ namespace ClassLibrary.Services
 {
     public interface IContactService
     {
-        void AddContactToList(Contact contact);
+        bool AddContactToList(ContactModel contact);
         string BeautifyEmail(string email);
         string BeautifyName(string name);
         void DeleteContactFromList(string email);
         void GetContactsFromJson();
-        Contact GetSpecificContact(int id);
+        ContactModel GetSpecificContact(int id);
         bool ShowAllContactsInConsole();
     }
 }
