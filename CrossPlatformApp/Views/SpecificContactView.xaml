@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ClassLibrary.Models;assembly=ClassLibrary"
+             xmlns:viewmodels="clr-namespace:CrossPlatformApp.ViewModels"
+             x:DataType="viewmodels:SpecificContactViewModel"
+             x:Class="CrossPlatformApp.Views.SpecificContactView"
+             Title="Contact Details">
+
+    <ScrollView>
+        <Grid Margin="20">
+
+            <VerticalStackLayout Margin="50, 10" MaximumWidthRequest="545">
+
+                <Label Text="First Name" FontAttributes="Bold" FontSize="15" />
+                <Label Text="{Binding ContactToEdit.FirstName}" />
+
+                <Label Text="Last Name" Margin="0, 10, 0, 0" FontAttributes="Bold" FontSize="15"/>
+                <Label Text="{Binding ContactToEdit.LastName}" />
+
+                <Label Text="Email Address*" Margin="0, 10, 0, 0" FontAttributes="Bold" FontSize="15"/>
+                <Label Text="{Binding ContactToEdit.Email}" />
+
+                <Label Text="Address" Margin="0, 10, 0, 0" FontAttributes="Bold" FontSize="15"/>
+                <Label Text="{Binding ContactToEdit.Address}" />
+
+                <Label Text="City" Margin="0, 10, 0, 0" FontAttributes="Bold" FontSize="15"/>
+                <Label Text="{Binding ContactToEdit.City}" />
+
+                <Label Text="Postal Code" Margin="0, 10, 0, 0" FontAttributes="Bold" FontSize="15"/>
+                <Label Text="{Binding ContactToEdit.PostalCode}" />
+
+                <Label Text="Phone Number" Margin="0, 10, 0, 0" FontAttributes="Bold" FontSize="15"/>
+                <Label Text="{Binding ContactToEdit.Phone}" />
+
+                <Button Command="{Binding ToEditContactCommand}" Text="Edit" Margin="0, 80, 0, 10" Padding="0, 10"  />
+
+                <Button Command="{Binding GoBackCommand}" Text="Go Back" Margin="0, 10" Padding="0, 10"  />
+                
+                <Button Command="{Binding DeleteContactCommand}" Text="Delete" Margin="0, 10" Padding="0, 10" BackgroundColor="#C41F0D" TextColor="White"  />
+
+            </VerticalStackLayout>
+
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

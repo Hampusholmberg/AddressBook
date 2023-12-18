@@ -41,7 +41,7 @@ namespace ClassLibrary.Services
             try
             {
                 GetContactsFromJson();
-                Contacts.Add(contact);
+                Contacts.Add(BeautifyContact(contact));
 
                 _fileService.UpdateJsonFromList(Contacts);
                 
@@ -54,19 +54,18 @@ namespace ClassLibrary.Services
 
 
         /// <summary>
-        /// Deletes a contact object based on the email value from the json file.
+        /// Deletes a contact object based on the Guid (Id) value from the json file.
         /// </summary>
-        /// <param name="email"></param>
-        public void DeleteContactFromList(string email)
+        /// <param name="id"></param>
+        public void DeleteContactFromList(Guid id)
         {
             try
             {
-                _fileService.DeleteContactFromJson(email);
+                _fileService.DeleteContactFromJson(id);
                 GetContactsFromJson();
             }
             catch (Exception ex) { Debug.Write(ex.Message); }
         }
-
 
         /// <summary>
         /// Removes blank spaces before and after the name and converts the first letter to uppercase and the rest to lowercase.
@@ -83,7 +82,6 @@ namespace ClassLibrary.Services
             return name;
         }
 
-
         /// <summary>
         /// Removes blank spaces before and after the email address and converts all letters to lowercase.
         /// </summary>
@@ -93,6 +91,38 @@ namespace ClassLibrary.Services
         {
             email = email.Trim().ToLower();
             return email;
+        }
+
+        public ContactModel BeautifyContact(ContactModel contactToUpdate)
+        {
+            ContactModel beautifiedContact = new()
+            {
+                FirstName = BeautifyName(contactToUpdate.FirstName),
+                LastName = BeautifyName(contactToUpdate.LastName),
+                Email = BeautifyEmail(contactToUpdate.Email),
+                Address = BeautifyName(contactToUpdate.Address),
+                City = BeautifyName(contactToUpdate.City),
+                PostalCode = BeautifyName(contactToUpdate.PostalCode),
+                Phone = BeautifyName(contactToUpdate.Phone)
+            };
+
+            return beautifiedContact;
+        }
+
+        public bool UpdateContactInList(ContactModel contactToUpdate)
+        {
+            try
+            {
+                int index = Contacts.FindIndex(x => x.Id == contactToUpdate.Id);
+
+                Contacts[index] = contactToUpdate;
+
+                _fileService.UpdateJsonFromList(Contacts);
+
+                return true;
+            }
+            catch (Exception ex) { Debug.Write(ex.Message); }
+            return false;
         }
 
 

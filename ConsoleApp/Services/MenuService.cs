@@ -57,30 +57,30 @@ namespace ConsoleApp.Services
         {
             Console.Clear();
 
-            int countBefore = _contactService.Contacts.Count();
+            int countBefore = _contactService.Contacts.Count()!;
 
             Console.Write("First Name: ");
-            string? firstName = _contactService.BeautifyName(Console.ReadLine());
+            string? firstName = Console.ReadLine()!;
 
             Console.Write("Last Name: ");
-            string? lastName = _contactService.BeautifyName(Console.ReadLine());
+            string? lastName = Console.ReadLine()!;
 
             Console.Write("Email Address: ");
-            string? emailAddress = _contactService.BeautifyEmail(Console.ReadLine());
+            string? emailAddress = Console.ReadLine()!;
 
             Console.Write("Address: ");
-            string? address = _contactService.BeautifyName(Console.ReadLine());
+            string? address = Console.ReadLine()!;
 
             Console.Write("City: ");
-            string? city = _contactService.BeautifyName(Console.ReadLine());
+            string? city = Console.ReadLine()!;
 
             Console.Write("Postal Code: ");
-            string? postalCode = Console.ReadLine();
+            string? postalCode = Console.ReadLine()!;
 
             Console.Write("Phone number: ");
-            string? phoneNumber = Console.ReadLine();
+            string phoneNumber = Console.ReadLine()!;
 
-            ContactModel contact = new ContactModel(firstName, lastName, emailAddress, address, city, postalCode, phoneNumber);
+            ContactModel contact = new(firstName, lastName, emailAddress, address, city, postalCode, phoneNumber);
 
             _contactService.AddContactToList(contact);
             Console.Clear();
@@ -100,13 +100,54 @@ namespace ConsoleApp.Services
         }
         public void MenuDeleteContact()
         {
-            Console.Clear();
-            _contactService.ShowAllContactsInConsole();
-            Console.Write("\nPlease enter the email address of the contact you wish to remove: ");
-            string contactToRemove = Console.ReadLine();
-            _contactService.DeleteContactFromList(contactToRemove);
+            do
+            {
+                Console.Clear();
 
-            WaitForUserInput();
+                for (int i = 0; i < _contactService.Contacts.Count(); i++)
+                {
+                    int id = i + 1;
+                    Console.WriteLine(
+                        $"{id}. {_contactService.Contacts[i].FirstName} " +
+                        $"{_contactService.Contacts[i].LastName}");
+                }
+
+                Console.WriteLine("\nPlease enter the number of the contact you wish to delete from the list. \nPress enter without entering a value to abort.");
+
+                string index = Console.ReadLine()!;
+
+                if (index == "")
+                {
+                    Console.Clear();
+                    break;
+                }
+                else
+                {
+                    try
+                    {
+                        int index_int = Convert.ToInt32(index) - 1;
+                        _contactService.DeleteContactFromList(_contactService.Contacts[index_int].Id);
+                        Console.Clear();
+
+                        WaitForUserInput();
+                        break;
+                    }
+                    catch
+                    {
+                        if (index == null)
+                        {
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please enter a valid option.");
+                            WaitForUserInput();
+                        }
+                    }
+                }
+            } while (true);
+
+            
         }
         public void MenuShowContacts()
         {

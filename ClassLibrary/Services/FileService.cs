@@ -45,14 +45,14 @@ namespace ClassLibrary.Services
         /// Takes an email address as a text string, tries to match it to contacts and deletes the user(s) from the json file and returns an updated list of contacts.
         /// </summary>
         /// <param name="email"></param>
-        public void DeleteContactFromJson(string email)
+        public void DeleteContactFromJson(Guid id)
         {
             List<ContactModel> contactsToKeep = new List<ContactModel>();
             List<ContactModel> allContacts = new List<ContactModel>(UpdateListFromJson());
 
             foreach (var contact in allContacts)
             {
-                if (contact.Email != email)
+                if (contact.Id != id)
                 {
                     contactsToKeep.Add(contact);
                 }

@@ -1,53 +1,19 @@
 [
   {
-    "FirstName": "Hampus",
-    "LastName": "Holmberg",
-    "Email": "hampusholmberg@live.se",
-    "Address": "Stora Strandgatan 39",
-    "City": "Landskrona",
-    "PostalCode": "26131",
-    "Phone": "0702242926"
-  },
-  {
-    "FirstName": "Hampus",
-    "LastName": "Holmberg",
-    "Email": "hampusholmberg@live.se",
-    "Address": "Stora Strandgatan 39",
-    "City": "Landskrona",
-    "PostalCode": "26131",
-    "Phone": "0702242926"
-  },
-  {
-    "FirstName": "Hampus",
-    "LastName": "Holmberg",
-    "Email": "hampusholmberg@live.com",
-    "Address": "Stora Strandgatan 39",
-    "City": "Landskrona",
-    "PostalCode": "26131",
-    "Phone": "0702242926"
-  },
-  {
-    "FirstName": "Hampus",
-    "LastName": "Holmberg",
-    "Email": "hampus@livbe.se",
-    "Address": "hjejhej",
-    "City": "hjsafrdpokiaf",
-    "PostalCode": "k\u00F6lhopikjhw",
-    "Phone": "\u00F6\u00E4oikjhgadf"
-  },
-  {
-    "FirstName": "sdfg",
-    "LastName": "sdfg",
-    "Email": "sdfg@",
+    "Id": "29c9dcfc-08ee-4ec4-a375-e1ee088a7a03",
+    "FirstName": "John",
+    "LastName": "Doe",
+    "Email": "johndoe@email.com",
     "Address": null,
     "City": null,
     "PostalCode": null,
     "Phone": null
   },
   {
-    "FirstName": "fg",
-    "LastName": "asdfgadfg@",
-    "Email": "dafg",
+    "Id": "af1c2de1-c4ac-43ec-b173-cf3ea3616f22",
+    "FirstName": "Jane",
+    "LastName": "Doe",
+    "Email": "janedoe@email.com",
     "Address": null,
     "City": null,
     "PostalCode": null,
