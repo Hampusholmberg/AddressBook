@@ -9,8 +9,6 @@ namespace ClassLibrary.Services
 
     public class FileService : IFileService
     {
-        //static string _fileName = "db.json";
-        //private readonly string _filePath = Path.Combine(Directory.GetCurrentDirectory(), @$"..\..\..\..\Files\{_fileName}");
 
         private readonly string _filePath = Path.Combine(Directory.GetCurrentDirectory(), @$"C:\Education\03._C-sharp\AddressBook\Files\db.json");
 

@@ -1,22 +1,22 @@
 [
   {
-    "Id": "29c9dcfc-08ee-4ec4-a375-e1ee088a7a03",
+    "Id": "e578139a-1916-48d8-b6fe-4ef004c8fa6c",
     "FirstName": "John",
     "LastName": "Doe",
     "Email": "johndoe@email.com",
-    "Address": null,
-    "City": null,
-    "PostalCode": null,
-    "Phone": null
+    "Address": "",
+    "City": "",
+    "PostalCode": "",
+    "Phone": ""
   },
   {
-    "Id": "af1c2de1-c4ac-43ec-b173-cf3ea3616f22",
+    "Id": "46c58d16-7170-40e3-82fa-ba3d6ff1ab60",
     "FirstName": "Jane",
     "LastName": "Doe",
     "Email": "janedoe@email.com",
-    "Address": null,
-    "City": null,
-    "PostalCode": null,
-    "Phone": null
+    "Address": "",
+    "City": "",
+    "PostalCode": "",
+    "Phone": ""
   }
 ]

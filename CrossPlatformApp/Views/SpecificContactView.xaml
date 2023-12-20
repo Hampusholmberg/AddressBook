@@ -7,6 +7,10 @@
              x:Class="CrossPlatformApp.Views.SpecificContactView"
              Title="Contact Details">
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
     <ScrollView>
         <Grid Margin="20">
 

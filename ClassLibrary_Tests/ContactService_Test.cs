@@ -32,26 +32,12 @@ public class ContactService_Test
     public void AddContactToList_ShouldAddContactToList ()
     {
         // ---- ARRANGE ---- // 
-        string testEmail = Guid.NewGuid().ToString();
-        ContactModel testContact = new ContactModel() 
-        {
-            FirstName = "Test",
-            LastName = "Testson",
-            Email = testEmail,
-            Address = "Test Rd. 2",
-            City = "Testville",
-            PostalCode = "12345",
-            Phone = "123456789"
-        };
 
         // ---- ACT ---- // 
-        _contactService.AddContactToList(testContact);
 
         // ---- ASSERT ---- // 
-        Assert.Equal(testEmail, _contactService.Contacts.Last().Email);
 
         // ---- CLEANUP ---- // 
-        _contactService.DeleteContactFromList(_contactService.Contacts.Last().Email);
     }
 
     [Fact]

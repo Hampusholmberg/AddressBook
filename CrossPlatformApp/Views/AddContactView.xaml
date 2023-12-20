@@ -6,6 +6,10 @@
              x:DataType="viewmodels:AddContactViewModel"
              x:Class="CrossPlatformApp.Views.AddContactView"
              Title="New Contact">
+ 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
 
     <ScrollView>
         <Grid RowDefinitions="auto, *" Margin="20" MaximumWidthRequest="545">
