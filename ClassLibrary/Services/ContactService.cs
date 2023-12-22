@@ -1,9 +1,6 @@
 ﻿using ClassLibrary.Models;
 using System.Diagnostics;
 
-
-
-
 namespace ClassLibrary.Services
 {
     // The purpose of this service class is to handle add, delete, update and get requests from the json file that will store the contacts
@@ -12,7 +9,7 @@ namespace ClassLibrary.Services
     {
         public List<ContactModel> Contacts = [];
 
-        private readonly FileService _fileService;
+        public FileService _fileService;
         public ContactService(FileService fileService)
         {
             _fileService = fileService;
@@ -43,7 +40,27 @@ namespace ClassLibrary.Services
                 Contacts.Add(BeautifyContact(contact));
 
                 _fileService.UpdateJsonFromList(Contacts);
-                
+                GetContactsFromJson();
+
+                return true;
+            }
+            catch (Exception ex) 
+            {
+                Debug.Write(ex.Message);
+                return false;
+            }
+            
+        }
+
+        /// <summary>
+        /// Deletes a contact object based on the Guid (Id) value from the json file.
+        /// </summary>
+        /// <param name="id"></param>
+        public bool DeleteContactFromList(string id)
+        {
+            try
+            {
+                _fileService.DeleteContactFromJson(id);
                 GetContactsFromJson();
                 return true;
             }
@@ -52,17 +69,24 @@ namespace ClassLibrary.Services
         }
 
         /// <summary>
-        /// Deletes a contact object based on the Guid (Id) value from the json file.
+        /// Updates a Contact Object in the json file.
         /// </summary>
-        /// <param name="id"></param>
-        public void DeleteContactFromList(Guid id)
+        /// <param name="contactToUpdate"></param>
+        /// <returns></returns>
+        public bool UpdateContactInList(ContactModel contactToUpdate)
         {
             try
             {
-                _fileService.DeleteContactFromJson(id);
-                GetContactsFromJson();
+                int index = Contacts.FindIndex(x => x.Id == contactToUpdate.Id);
+
+                Contacts[index] = BeautifyContact(contactToUpdate);
+
+                _fileService.UpdateJsonFromList(Contacts);
+
+                return true;
             }
             catch (Exception ex) { Debug.Write(ex.Message); }
+            return false;
         }
 
         /// <summary>
@@ -87,7 +111,11 @@ namespace ClassLibrary.Services
         /// <returns></returns>
         public string BeautifyEmail(string email)
         {
-            email = email.Trim().ToLower();
+            if (!string.IsNullOrEmpty(email))
+            {
+                email = email.Trim().ToLower();
+                return email;
+            }
             return email;
         }
 
@@ -98,44 +126,22 @@ namespace ClassLibrary.Services
         /// <returns></returns>
         public ContactModel BeautifyContact(ContactModel contactToUpdate)
         {
-            ContactModel beautifiedContact = new()
-            {
-                FirstName = BeautifyName(contactToUpdate.FirstName),
-                LastName = BeautifyName(contactToUpdate.LastName),
-                Email = BeautifyEmail(contactToUpdate.Email),
-                Address = BeautifyName(contactToUpdate.Address),
-                City = BeautifyName(contactToUpdate.City),
-                PostalCode = BeautifyName(contactToUpdate.PostalCode),
-                Phone = BeautifyName(contactToUpdate.Phone)
-            };
+            contactToUpdate.FirstName = BeautifyName(contactToUpdate.FirstName);
+            contactToUpdate.LastName = BeautifyName(contactToUpdate.LastName);
+            contactToUpdate.Email = BeautifyEmail(contactToUpdate.Email);
+            contactToUpdate.Address = BeautifyName(contactToUpdate.Address);
+            contactToUpdate.City = BeautifyName(contactToUpdate.City);
+            contactToUpdate.PostalCode = BeautifyName(contactToUpdate.PostalCode);
+            contactToUpdate.Phone = BeautifyName(contactToUpdate.Phone);
 
-            return beautifiedContact;
+            return contactToUpdate;
         }
 
         /// <summary>
-        /// Updates a Contact Object in the json file.
+        /// Returns a contact object based on the index inserted. 
         /// </summary>
-        /// <param name="contactToUpdate"></param>
+        /// <param name="index"></param>
         /// <returns></returns>
-        public bool UpdateContactInList(ContactModel contactToUpdate)
-        {
-            try
-            {
-                int index = Contacts.FindIndex(x => x.Id == contactToUpdate.Id);
-
-                Contacts[index] = BeautifyContact(contactToUpdate);
-
-                _fileService.UpdateJsonFromList(Contacts);
-
-                return true;
-            }
-            catch (Exception ex) { Debug.Write(ex.Message); }
-            return false;
-        }
-
-
-
-        // FIXA
         public ContactModel GetSpecificContact(int index)
         {
             GetContactsFromJson();

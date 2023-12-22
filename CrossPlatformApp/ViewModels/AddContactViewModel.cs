@@ -43,6 +43,5 @@ public partial class AddContactViewModel : ObservableObject
         {
             await Shell.Current.GoToAsync("..");
         }
-        
     }
 }

@@ -4,13 +4,12 @@ using System.Text.Json;
 
 namespace ClassLibrary.Services
 {
-    /// The purpose of this service class is to handle the connection between
-    /// the application and the Json file stored on the disk. 
+    // The purpose of this service class is to handle the connection between the application and the Json file stored on the disk. 
 
     public class FileService : IFileService
     {
 
-        private readonly string _filePath = Path.Combine(Directory.GetCurrentDirectory(), @$"C:\Education\03._C-sharp\AddressBook\Files\db.json");
+        private readonly string _filePath = @"C:\Education\03._C-sharp\AddressBook\Files\db.json";
 
         /// <summary>
         /// Takes a list of Contact objects and returns a json formatted string with proper indentation.
@@ -28,10 +27,10 @@ namespace ClassLibrary.Services
         }
 
         /// <summary>
-        /// Takes a string of json formatted text and returns it as a list of Contacts.
+        /// Takes json formatted string and return a list of ContacsModel.
         /// </summary>
         /// <param name="json"></param>
-        /// <returns> List<Contact> </returns>
+        /// <returns></returns>
         public List<ContactModel> FromJson(string json)
         {
             List<ContactModel> jsonDeserialized = new List<ContactModel>();
@@ -40,10 +39,10 @@ namespace ClassLibrary.Services
         }
 
         /// <summary>
-        /// Takes an email address as a text string, tries to match it to contacts and deletes the user(s) from the json file and returns an updated list of contacts.
+        /// Deletes a contact from the json file, based on the contact objects id property.
         /// </summary>
         /// <param name="email"></param>
-        public void DeleteContactFromJson(Guid id)
+        public void DeleteContactFromJson(string id)
         {
             List<ContactModel> contactsToKeep = new List<ContactModel>();
             List<ContactModel> allContacts = new List<ContactModel>(UpdateListFromJson());
@@ -62,18 +61,21 @@ namespace ClassLibrary.Services
         /// Takes a list of contacts and replaces the content of the json file with it.
         /// </summary>
         /// <param name="updatedList"></param>
-        public void UpdateJsonFromList(List<ContactModel> updatedList)
+        public void UpdateJsonFromList(List<ContactModel> updatedList, string? filePath = null)
         {
-            File.WriteAllText(_filePath, ToJson(updatedList));
+            filePath = filePath ?? _filePath;
+            File.WriteAllText(filePath, ToJson(updatedList));
         }
 
         /// <summary>
         /// Returns a list with the content that is in the json file
         /// </summary>
         /// <returns> List<Contact> </returns>
-        public List<ContactModel> UpdateListFromJson()
+        public List<ContactModel> UpdateListFromJson(string? filePath = null)
         {
-            string json = File.ReadAllText(_filePath);
+            filePath = filePath ?? _filePath;
+
+            string json = File.ReadAllText(filePath);
             return FromJson(json);
         }
     }

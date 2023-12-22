@@ -154,11 +154,25 @@ namespace ConsoleApp.Services
                     {
                         int index_int = Convert.ToInt32(index) - 1;
 
+                        int countBefore = _contactService.Contacts.Count();
+
                         ContactModel deletedContact = _contactService.Contacts[index_int];
                         _contactService.DeleteContactFromList(_contactService.Contacts[index_int].Id);
 
+                        int countAfter = _contactService.Contacts.Count();
+
                         Console.Clear();
-                        Console.WriteLine($"{deletedContact.FirstName} {deletedContact.LastName} was successfully deleted from the contact list.");
+
+                        if (countBefore > countAfter)
+                        {
+                            Console.WriteLine($"{deletedContact.FirstName} {deletedContact.LastName} was successfully deleted from the contact list.");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"There was an error, {deletedContact.FirstName} {deletedContact.LastName} has not been removed from the contact list.");
+                        }
+                        
+
 
                         WaitForUserInput();
                         break;

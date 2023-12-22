@@ -6,8 +6,8 @@ namespace ClassLibrary.Interfaces
     {
         string ToJson(List<ContactModel> contacts);
         List<ContactModel> FromJson(string json);
-        List<ContactModel> UpdateListFromJson();
-        void UpdateJsonFromList(List<ContactModel> updatedList);
-        void DeleteContactFromJson(Guid id);
+        List<ContactModel> UpdateListFromJson(string filepath);
+        void UpdateJsonFromList(List<ContactModel> updatedList, string filePath);
+        void DeleteContactFromJson(string id);
     }
 }

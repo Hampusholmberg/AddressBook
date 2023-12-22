@@ -14,7 +14,7 @@ namespace ClassLibrary.Models
         public ContactModel(string firstName, string lastName, string email,
             string address, string city, string postalCode, string phone)
         {
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid().ToString();
             FirstName = firstName;
             LastName = lastName;
             Email = email;
@@ -24,7 +24,7 @@ namespace ClassLibrary.Models
             Phone = phone;
         }
 
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
         public string Email { get; set; } = null!;
