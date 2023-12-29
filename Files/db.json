@@ -1,22 +1,22 @@
 [
   {
-    "Id": "981678a6-bcee-49a3-bd4a-e185aa29a516",
-    "FirstName": "Jane",
-    "LastName": "Doe",
-    "Email": "jane@doe.com",
-    "Address": null,
-    "City": null,
-    "PostalCode": null,
-    "Phone": null
-  },
-  {
-    "Id": "bb21a077-9649-4f93-bd2a-d5ac66e080d6",
+    "Id": "b0d6d3b6-6549-4e11-b34f-75abcf4a8133",
     "FirstName": "John",
     "LastName": "Doe",
     "Email": "john@doe.com",
-    "Address": null,
-    "City": null,
-    "PostalCode": null,
-    "Phone": null
+    "Address": "Test rd. 5",
+    "City": "Testville",
+    "PostalCode": "12345",
+    "Phone": "123456789"
+  },
+  {
+    "Id": "4de29c5c-7bd9-49e2-871a-c80c1092b475",
+    "FirstName": "Jane",
+    "LastName": "Doe",
+    "Email": "jane@doe.com",
+    "Address": "Test street 251",
+    "City": "Testshire",
+    "PostalCode": "12345",
+    "Phone": "123456789"
   }
 ]

@@ -42,10 +42,12 @@ namespace ClassLibrary.Services
         /// Deletes a contact from the json file, based on the contact objects id property.
         /// </summary>
         /// <param name="email"></param>
-        public void DeleteContactFromJson(string id)
+        public void DeleteContactFromJson(string id, string? filePath = null)
         {
+            filePath = filePath ?? _filePath;
+
             List<ContactModel> contactsToKeep = new List<ContactModel>();
-            List<ContactModel> allContacts = new List<ContactModel>(UpdateListFromJson());
+            List<ContactModel> allContacts = new List<ContactModel>(UpdateListFromJson(filePath));
 
             foreach (var contact in allContacts)
             {
@@ -54,7 +56,7 @@ namespace ClassLibrary.Services
                     contactsToKeep.Add(contact);
                 }
             }
-            UpdateJsonFromList(contactsToKeep);
+            UpdateJsonFromList(contactsToKeep, filePath);
         }
 
         /// <summary>

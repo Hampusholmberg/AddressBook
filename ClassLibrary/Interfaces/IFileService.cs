@@ -8,6 +8,6 @@ namespace ClassLibrary.Interfaces
         List<ContactModel> FromJson(string json);
         List<ContactModel> UpdateListFromJson(string filepath);
         void UpdateJsonFromList(List<ContactModel> updatedList, string filePath);
-        void DeleteContactFromJson(string id);
+        void DeleteContactFromJson(string id, string filePath);
     }
 }

@@ -123,7 +123,7 @@ namespace ConsoleApp.Services
         }
 
         /// <summary>
-        /// Logic for deleting a new contact to the contact list.
+        /// Logic for deleting an existing contact from the contact list.
         /// </summary>
         public void MenuDeleteContact()
         {
@@ -171,8 +171,6 @@ namespace ConsoleApp.Services
                         {
                             Console.WriteLine($"There was an error, {deletedContact.FirstName} {deletedContact.LastName} has not been removed from the contact list.");
                         }
-                        
-
 
                         WaitForUserInput();
                         break;

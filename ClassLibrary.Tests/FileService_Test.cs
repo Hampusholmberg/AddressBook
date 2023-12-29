@@ -1,9 +1,5 @@
-﻿using ClassLibrary.Interfaces;
-using ClassLibrary.Models;
+﻿using ClassLibrary.Models;
 using ClassLibrary.Services;
-using Moq;
-using System.Xml.Serialization;
-
 
 namespace ClassLibrary.Tests;
 
@@ -57,7 +53,7 @@ public class FileService_Test
     {
         // Arrange
         FileService fileService = new FileService();
-        string jsonFormatString = "[\r\n  {\r\n    \"Id\": \"test\",\r\n    \"FirstName\": \"John\",\r\n    \"LastName\": \"Doe\",\r\n    \"Email\": null,\r\n    \"Address\": null,\r\n    \"City\": null,\r\n    \"PostalCode\": null,\r\n    \"Phone\": null\r\n  },\r\n  {\r\n    \"Id\": \"test\",\r\n    \"FirstName\": \"Jane\",\r\n    \"LastName\": \"Doe\",\r\n    \"Email\": null,\r\n    \"Address\": null,\r\n    \"City\": null,\r\n    \"PostalCode\": null,\r\n    \"Phone\": null\r\n  }\r\n]";
+        string jsonFormatString = "[\r\n  {\r\n    \"Id\": \"test1\",\r\n    \"FirstName\": \"John\",\r\n    \"LastName\": \"Doe\",\r\n    \"Email\": null,\r\n    \"Address\": null,\r\n    \"City\": null,\r\n    \"PostalCode\": null,\r\n    \"Phone\": null\r\n  },\r\n  {\r\n    \"Id\": \"test2\",\r\n    \"FirstName\": \"Jane\",\r\n    \"LastName\": \"Doe\",\r\n    \"Email\": null,\r\n    \"Address\": null,\r\n    \"City\": null,\r\n    \"PostalCode\": null,\r\n    \"Phone\": null\r\n  }\r\n]";
 
 
         // Act
@@ -66,13 +62,13 @@ public class FileService_Test
         // Assert
         Assert.True(testList != null);
 
+        Assert.True(testList[0].Id == "test1");
         Assert.True(testList[0].FirstName == "John");
         Assert.True(testList[0].LastName == "Doe");
-        Assert.True(testList[0].Id == "test");
 
+        Assert.True(testList[1].Id == "test2");
         Assert.True(testList[1].FirstName == "Jane");
         Assert.True(testList[1].LastName == "Doe");
-        Assert.True(testList[1].Id == "test");
     }
 
     [Fact]
@@ -130,15 +126,18 @@ public class FileService_Test
     public void DeleteContactFromJson_ShouldDeleteSelectedContactFromJsonFile()
     {
         // Arrange
-
-
-
+        string filePath = @"C:\Education\03._C-sharp\AddressBook\Files\test_db.json";
+        FileService fileService = new();
+        ContactModel testContact = new ContactModel("test", "test");
+        List<ContactModel> testList = new List<ContactModel> { testContact };
 
         // Act
-
-
+        fileService.UpdateJsonFromList(testList, filePath);
+        fileService.DeleteContactFromJson(testContact.Id, filePath);
+        testList = fileService.UpdateListFromJson(filePath);
 
 
         // Assert
+        Assert.True(testList.Count == 0);
     }
 }

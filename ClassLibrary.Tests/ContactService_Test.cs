@@ -6,7 +6,6 @@ namespace ClassLibrary.Tests;
 
 public class ContactService_Test
 {
-
     [Fact]
     public void AddContactToList_ShouldAddOneContactToList_ThenReturnTrue()
     {
